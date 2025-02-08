@@ -8,6 +8,7 @@ import {
 } from "@knigam/role-player/src";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { clocktowerRules } from "./clocktowerRules";
+import { ClocktowerLobby } from "./components/ClocktowerLobby";
 
 function App() {
   const gameRules = clocktowerRules;
@@ -35,6 +36,7 @@ function App() {
                 <RolePlayerGame
                   height={100}
                   width={100}
+                  LobbyComponent={ClocktowerLobby}
                   gameEngine={clocktowerEngine}
                 />
               }
