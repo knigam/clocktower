@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+
+import {
+  FirebaseDatastore,
+  GameEngine,
+  RolePlayerGame,
+  Title,
+} from "@knigam/role-player/src";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { clocktowerRules } from "./clocktowerRules";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const gameRules = clocktowerRules;
+  const firebaseConfig = {
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  };
+  const datastore = new FirebaseDatastore(firebaseConfig);
+
+  const clocktowerEngine = new GameEngine(gameRules, datastore);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="RolePlayerApp">
+      <BrowserRouter>
+        <div>
+          <Routes>
+            <Route path="/" element={<Title />} />
+            <Route
+              path="/game/*"
+              element={
+                <RolePlayerGame
+                  height={100}
+                  width={100}
+                  gameEngine={clocktowerEngine}
+                />
+              }
+            />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </div>
+  );
 }
 
-export default App
+export default App;
