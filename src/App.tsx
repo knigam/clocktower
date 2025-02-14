@@ -1,11 +1,7 @@
 import "./App.css";
+import "@knigam/role-player/dist/index.css";
 
-import {
-  FirebaseDatastore,
-  GameEngine,
-  RolePlayerGame,
-  Title,
-} from "@knigam/role-player/src";
+import { FirebaseDatastore, GameEngine, RolePlayerGame, Title } from "@knigam/role-player";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { clocktowerRules } from "./clocktowerRules";
 import { ClocktowerLobby } from "./components/ClocktowerLobby";

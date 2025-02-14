@@ -1,11 +1,5 @@
-import {
-  GameState,
-  UserData,
-  GameEngine,
-  Response,
-  ErrorResponse,
-} from "@knigam/role-player";
-import { LobbyProps } from "@knigam/role-player/src/components/Lobby";
+import { GameState, UserData, GameEngine, Response, ErrorResponse } from "@knigam/role-player";
+import { LobbyProps } from "@knigam/role-player";
 import React, { useState } from "react";
 
 export interface ClocktowerLobbyProps {
@@ -16,11 +10,7 @@ export interface ClocktowerLobbyProps {
   gameEngine: GameEngine;
 }
 
-export const ClocktowerLobby: React.FC<LobbyProps> = ({
-  gameState,
-  userState,
-  gameEngine,
-}) => {
+export const ClocktowerLobby: React.FC<LobbyProps> = ({ gameState, userState, gameEngine }) => {
   const url = document.baseURI;
   const { players, settings } = gameState;
   const isCreator = gameState.creatorId === userState.id;
@@ -57,17 +47,8 @@ export const ClocktowerLobby: React.FC<LobbyProps> = ({
     <div className="Lobby">
       <h3>Game Code: {getSessionCode()}</h3>
       <span>
-        <input
-          className="role-player-input-btn-input"
-          type="url"
-          value={url}
-          id="urlText"
-          readOnly
-        />
-        <button
-          className="role-player-btn role-player-input-btn"
-          onClick={copyUrl}
-        >
+        <input className="role-player-input-btn-input" type="url" value={url} id="urlText" readOnly />
+        <button className="role-player-btn role-player-input-btn" onClick={copyUrl}>
           Copy
         </button>
       </span>
@@ -93,9 +74,7 @@ export const ClocktowerLobby: React.FC<LobbyProps> = ({
         </div>
       )}
       <br />
-      <div>
-        Current Players: {gameState.players.map((p) => p.name).join(", ")}
-      </div>
+      <div>Current Players: {gameState.players.map((p) => p.name).join(", ")}</div>
       <br />
       <span>
         <input
@@ -117,10 +96,7 @@ export const ClocktowerLobby: React.FC<LobbyProps> = ({
     </div>
   );
 
-  function checkboxChanged(
-    event: React.ChangeEvent<HTMLInputElement>,
-    role: string
-  ) {
+  function checkboxChanged(event: React.ChangeEvent<HTMLInputElement>, role: string) {
     if (gameRules.validRoles.has(role)) {
       const settingChecked = event.target.checked;
       const { roles } = settings;
