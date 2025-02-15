@@ -16,7 +16,7 @@ export const ClocktowerLobby: React.FC<LobbyProps> = ({ gameState, userState, ga
   const isCreator = gameState.creatorId === userState.id;
   const gameRules = gameEngine.getGameRules();
 
-  const [nameState, setNameState] = useState<string>(userState.name);
+  const [nameState, setNameState] = useState<string>(getDefaultPlayerName(gameEngine, gameState, userState));
   const [errorState, setErrorState] = useState<string | undefined>(undefined);
 
   const playOrJoinGame = () => {
@@ -114,6 +114,14 @@ export const ClocktowerLobby: React.FC<LobbyProps> = ({ gameState, userState, ga
         };
         handleErrors(gameEngine.setupGame(gameState, userState, newSettings));
       }
+    }
+  }
+
+  function getDefaultPlayerName(gameEngine: GameEngine, gameState: GameState, userState: UserData): string {
+    try {
+      return gameEngine.getPlayerState(gameState, userState).name;
+    } catch {
+      return userState.name;
     }
   }
 
